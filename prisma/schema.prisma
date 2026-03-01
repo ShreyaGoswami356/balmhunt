@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  BRAND
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  password     String
+  role         Role
+  bio          String?
+  join_date    DateTime      @default(now())
+  brandProfile BrandProfile?
+  votes        Vote[]
+  comments     Comment[]
+}
+
+model BrandProfile {
+  id         String    @id @default(cuid())
+  user_id    String    @unique
+  brand_name String
+  website    String?
+  verified   Boolean   @default(false)
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  products   Product[]
+}
+
+model Product {
+  id               String       @id @default(cuid())
+  name             String
+  brand_profile_id String
+  image_url        String
+  tagline          String
+  description      String
+  launch_date      DateTime     @db.Date
+  created_at       DateTime     @default(now())
+  brandProfile     BrandProfile @relation(fields: [brand_profile_id], references: [id], onDelete: Cascade)
+  votes            Vote[]
+  comments         Comment[]
+  hallOfFame       HallOfFame[]
+
+  @@index([launch_date])
+}
+
+model Vote {
+  id         String   @id @default(cuid())
+  user_id    String
+  product_id String
+  vote_date  DateTime @db.Date
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, product_id, vote_date])
+  @@index([vote_date])
+  @@index([product_id])
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  user_id    String
+  product_id String
+  content    String
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@index([product_id])
+}
+
+model HallOfFame {
+  id          String   @id @default(cuid())
+  product_id  String
+  date        DateTime @unique @db.Date
+  total_votes Int
+  product     Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@index([date])
+}

@@ -42,18 +42,18 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "makesomething ☀️",
-  description: "build your first app with ai. look what i made!",
-  metadataBase: new URL("https://makesomething.so"),
+  title: "BalmHunt",
+  description: "Where lip balms launch.",
+  metadataBase: new URL("https://balmhunt.vercel.app"),
   openGraph: {
-    title: "makesomething ☀️",
-    description: "look what i made!",
-    siteName: "makesomething",
+    title: "BalmHunt",
+    description: "Where lip balms launch.",
+    siteName: "BalmHunt",
   },
   twitter: {
     card: "summary_large_image",
-    title: "makesomething ☀️",
-    description: "look what i made!",
+    title: "BalmHunt",
+    description: "Where lip balms launch.",
   },
 };
 
@@ -65,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} ${spaceGrotesk.variable} ${bricolageGrotesque.variable} ${instrumentSerif.variable} min-h-screen text-foreground bg-background font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} ${spaceGrotesk.variable} ${bricolageGrotesque.variable} ${instrumentSerif.variable} min-h-screen bg-white text-[#111111] font-sans antialiased`}
       >
         <Providers>{children}</Providers>
       </body>

@@ -1,71 +1,80 @@
-# make something
+# BalmHunt MVP (Phase 1)
 
-build your first app with ai. no coding experience needed. seriously.
+BalmHunt is a daily ranking platform where lip balms launch, get upvoted, and compete for the top spot.
 
-## what is this?
+## Stack
 
-this is the starter repo for **make something** — a free, live tutorial where i show you how to build a real app using openai codex (an ai that writes code for you). you watch me build one from scratch, then you go build your own.
+- Next.js (App Router)
+- PostgreSQL
+- Prisma ORM
+- NextAuth (Credentials)
+- Tailwind CSS + HeroUI
 
-this repo is what you'll use to build yours. it comes with everything pre-configured — a framework, a component library, styling, animations — so you can focus on your idea instead of setup. an ai agent lives inside it that helps you build, answers questions, and handles the code.
+## Features in this MVP
 
-you just need a laptop, a chatgpt account (free version works), and an idea. if you don't have an idea yet, no worries — the agent will help you think of one.
+- Daily `Today�s Drops` ranking (UTC date based)
+- Role-based auth (`USER`, `BRAND`)
+- User-only upvoting (one vote per product per day)
+- Product comments (users + brands)
+- Official brand badge on owner comments
+- Leaderboard (`All Time`, `This Week`)
+- Hall of Fame winners list
+- Daily winner finalize script (for yesterday)
 
-## who this is for
+## Local Setup
 
-- complete beginners — zero coding knowledge needed
-- people with ideas who don't know where to start
-- anyone curious about building with ai but hasn't tried it yet
-
-## quick setup
-
-### mac
-
-open Terminal and paste:
+1. Install dependencies:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/filip-pilar/makesomething/main/scripts/setup-mac.sh)
+npm install
 ```
 
-### windows
+2. Copy env file and set values:
 
-open PowerShell and paste:
-
-```powershell
-irm https://raw.githubusercontent.com/filip-pilar/makesomething/main/scripts/setup-windows.ps1 | iex
+```bash
+cp .env.example .env
 ```
 
-## resume
+Required values in `.env`:
 
-already set up? open the **make-something** folder on your Desktop and double-click:
+- `DATABASE_URL` (PostgreSQL connection string)
+- `NEXTAUTH_URL` (default `http://localhost:3000`)
+- `NEXTAUTH_SECRET` (long random string)
 
-- **mac:** `run.command`
-- **windows:** `run.bat`
+3. Generate Prisma client and push schema:
 
-## how it works
+```bash
+npm run db:generate
+npm run db:push
+```
 
-once you're set up, the ai agent guides the whole thing. you talk to it in plain english — no code, no jargon.
+4. Seed example data:
 
-| command | what it does |
-|---------|-------------|
-| `$start` | brainstorm an idea and start building |
-| `$imlost` | get unstuck when you're confused |
-| `$fixit` | fix problems automatically |
-| `$deploy` | put your app on the internet with a shareable link |
+```bash
+npm run db:seed
+```
 
-you describe what you want, the agent builds it, and you see it live in your browser. one feature at a time, until you've got something real you can share.
+5. Start dev server:
 
-## what's in the box
+```bash
+npm run dev
+```
 
-this repo comes pre-loaded with:
+Open: `http://localhost:3000`
 
-- [Next.js](https://nextjs.org) — framework
-- [HeroUI](https://heroui.com) — component library (buttons, cards, inputs, navbars, etc.)
-- [Tailwind CSS](https://tailwindcss.com) — styling
-- [Framer Motion](https://motion.dev) — animations
-- [Codex CLI](https://github.com/openai/codex) — the ai agent that builds with you
+## Seed Accounts
 
-you don't need to know what any of these are. the agent handles it all.
+All seeded users use password: `password123`
 
-## livestream attendees
+- `ava@balmhunt.dev` (USER)
+- `mia@balmhunt.dev` (USER)
+- `nora@balmhunt.dev` (USER)
+- `brand@balmhunt.dev` (BRAND)
 
-if you joined from a livestream, check the google doc shared during the stream for step-by-step instructions. otherwise, follow the quick setup above.
+## Daily Winner Script
+
+Run this to save yesterday�s winner into Hall of Fame:
+
+```bash
+npm run winner:finalize
+```
