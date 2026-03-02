@@ -1,15 +1,27 @@
-ï»¿# Onwards
+# BalmHunt MVP (Phase 1)
 
-Onwards is a structured, time-bound reset program for high-performing professionals.
+BalmHunt is a daily ranking platform where lip balms launch, get upvoted, and compete for the top spot.
 
 ## Stack
 
 - Next.js (App Router)
-- TypeScript
-- Tailwind CSS
-- OpenAI API (server-side via `/api/chat`)
+- PostgreSQL
+- Prisma ORM
+- NextAuth (Credentials)
+- Tailwind CSS + HeroUI
 
-## Run Locally
+## Features in this MVP
+
+- Daily `Today’s Drops` ranking (UTC date based)
+- Role-based auth (`USER`, `BRAND`)
+- User-only upvoting (one vote per product per day)
+- Product comments (users + brands)
+- Official brand badge on owner comments
+- Leaderboard (`All Time`, `This Week`)
+- Hall of Fame winners list
+- Daily winner finalize script (for yesterday)
+
+## Local Setup
 
 1. Install dependencies:
 
@@ -17,31 +29,52 @@ Onwards is a structured, time-bound reset program for high-performing profession
 npm install
 ```
 
-2. Create `.env.local` in the project root:
+2. Copy env file and set values:
 
-```env
-OPENAI_API_KEY=your_openai_api_key
+```bash
+cp .env.example .env
 ```
 
-3. Start the app:
+Required values in `.env`:
+
+- `DATABASE_URL` (PostgreSQL connection string)
+- `NEXTAUTH_URL` (default `http://localhost:3000`)
+- `NEXTAUTH_SECRET` (long random string)
+
+3. Generate Prisma client and push schema:
+
+```bash
+npm run db:generate
+npm run db:push
+```
+
+4. Seed example data:
+
+```bash
+npm run db:seed
+```
+
+5. Start dev server:
 
 ```bash
 npm run dev
 ```
 
-4. Open:
+Open: `http://localhost:3000`
 
-`http://localhost:3000`
+## Seed Accounts
 
-## Key Routes
+All seeded users use password: `password123`
 
-- `/` - Onwards landing page
-- `/reset` - Session 1 intake flow
-- `/session` - Structured session chat (12-response cap)
-- `/api/chat` - Server-side OpenAI chat endpoint
+- `ava@balmhunt.dev` (USER)
+- `mia@balmhunt.dev` (USER)
+- `nora@balmhunt.dev` (USER)
+- `brand@balmhunt.dev` (BRAND)
 
-## Notes
+## Daily Winner Script
 
-- API keys are never exposed to the client.
-- Session mode is enforced server-side with structured progression.
-- No database is used yet.
+Run this to save yesterday’s winner into Hall of Fame:
+
+```bash
+npm run winner:finalize
+```

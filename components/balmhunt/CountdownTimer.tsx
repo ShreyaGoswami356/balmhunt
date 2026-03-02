@@ -2,18 +2,20 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-function getMsUntilMarch5UTC() {
+function getMsUntilNextWeekUTC() {
   const now = new Date();
-  const resetAt = Date.UTC(2026, 2, 5, 0, 0, 0);
-  return Math.max(0, resetAt - now.getTime());
+  const day = now.getUTCDay();
+  const daysUntilMonday = day === 0 ? 1 : 8 - day;
+  const nextMonday = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + daysUntilMonday);
+  return Math.max(0, nextMonday - now.getTime());
 }
 
 export default function CountdownTimer() {
-  const [remainingMs, setRemainingMs] = useState(getMsUntilMarch5UTC());
+  const [remainingMs, setRemainingMs] = useState(getMsUntilNextWeekUTC());
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setRemainingMs(getMsUntilMarch5UTC());
+      setRemainingMs(getMsUntilNextWeekUTC());
     }, 1000);
 
     return () => window.clearInterval(interval);

@@ -42,18 +42,18 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Onwards",
-  description: "A structured, time-bound reset program for forward motion.",
-  metadataBase: new URL("https://onwards.vercel.app"),
+  title: "BalmHunt",
+  description: "Where lip balms launch.",
+  metadataBase: new URL("https://balmhunt.vercel.app"),
   openGraph: {
-    title: "Onwards",
-    description: "A structured, time-bound reset program for forward motion.",
-    siteName: "Onwards",
+    title: "BalmHunt",
+    description: "Where lip balms launch.",
+    siteName: "BalmHunt",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Onwards",
-    description: "A structured, time-bound reset program for forward motion.",
+    title: "BalmHunt",
+    description: "Where lip balms launch.",
   },
 };
 

@@ -1,6 +1,5 @@
 {
-  "name": "onwards",
-  "description": "Onwards - a structured, time-bound reset program.",
+  "name": "make-something",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -28,7 +27,6 @@
     "framer-motion": "^12.34.3",
     "next": "16.1.6",
     "next-auth": "^4.24.13",
-    "openai": "^6.25.0",
     "prisma": "^6.19.2",
     "react": "19.2.3",
     "react-dom": "19.2.3"
